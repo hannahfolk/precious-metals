@@ -1,158 +1,150 @@
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-        <a href="/" class="brand-logo">Precious Metals</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/alerts">Alerts</a></li>
-        </ul>
-    </div>
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo">Precious Metals</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/alerts">Alerts</a></li>
+      <li><a href="/api/users/logout">Logout</a></li>
+    </ul>
+  </div>
 </nav>
 
 <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-        <br>
-        <h1 class="header center orange-text">Precious Metals Stock Exchange</h1>
-        <div class="row center">
-            <h5 class="header col s12 light">A modern stock market index of common precious metals</h5>
-        </div>
-        <br>
+  <div class="container">
+    <br>
+    <h1 class="header center orange-text">Precious Metals Stock Exchange</h1>
+    <div class="row center">
+      <h5 class="header col s12 light">A modern stock market index of common precious metals</h5>
     </div>
+    <br>
+  </div>
 </div>
 ​
 <!--DAILY DATABASE-->
 <div class="container" id="database">
+  <div class="section">
+    <div class="row">
+      <div class="card col-12">
+        <div class="card-body">
+          <div class="row" id="database">
+
+            <div class="col-12">
+              <h2 style="text-align: center">DAILY DATABASE</h2>
+
+              <table style="width:100%" id="database">
+                <tr>
+                  <th>Name</th>
+                  <th>USD/Troy</th>
+                  <th>USD/KG</th>
+                  <th>USD/Grams</th>
+                </tr>
+                <tr>
+                  <td>GOLD (USDXAU)</td>
+                  <td>${{ gold.oz }}</td>
+                  <td>${{ gold.kg }}</td>
+                  <td>${{ gold.grams }}</td>
+
+                </tr>
+                <tr>
+                  <td>SILVER (USDXAG)</td>
+                  <td>${{ silver.oz }}</td>
+                  <td>${{ silver.kg }} </td>
+                  <td>${{ silver.grams }}</td>
+                </tr>
+                <tr>
+                  <td>PLATINUM (USDXPT)</td>
+                  <td>${{ platinum.oz }}</td>
+                  <td>${{ platinum.kg }}</td>
+                  <td>${{ platinum.grams }}</td>
+                </tr>
+                <tr>
+                  <td>PALLADIUM (USDXPD)</td>
+                  <td>${{ palladium.oz }}</td>
+                  <td>${{ palladium.kg }}</td>
+                  <td>${{ palladium.grams }}</td>
+                </tr>
+                <tr>
+                  <td>RHODIUM (USDXRH)</td>
+                  <td>${{ rhodium.oz }}</td>
+                  <td>${{ rhodium.kg }}</td>
+                  <td>${{ rhodium.grams }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   PRICE ALERTS   -->
+  <div class="container" id="database">
     <div class="section">
-        <div class="row">
-            <div class="card col-12">
-                <div class="card-body">
-                    <div class="row" id="database">
+      <div class="row">
+        <div class="card col-12">
+          <div class="card-body" id="alert-card">
+            <div class="row" id="database">
 
-                        <div class="col-12">
-                            <h2 style="text-align: center">DAILY DATABASE</h2>
+              <div class="col-12">
+                <h2 style="text-align: center" id="alertsH2">TIME TO BUY FOR:</h2>
 
-                            <table style="width:100%" id="database">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>USD/Troy</th>
-                                    <th>USD/KG</th>
-                                    <th>USD/Grams</th>
-                                </tr>
-                                <tr>
-                                    <td>GOLD (USDXAU)</td>
-                                    <td>${{ gold.oz }}</td>
-                                    <td>${{ gold.kg }}</td>
-                                    <td>${{ gold.grams }}</td>
+                <table style="width:100%" id="alerts-table">
+                  <tr>
+                    <th>Metal</th>
+                    <th>Approved Rate</th>
+                    <th>Current Rate</th>
+                  </tr>
 
-                                </tr>
-                                <tr>
-                                    <td>SILVER (USDXAG)</td>
-                                    <td>${{ silver.oz }}</td>
-                                    <td>${{ silver.kg }} </td>
-                                    <td>${{ silver.grams }}</td>
-                                </tr>
-                                <tr>
-                                    <td>PLATINUM (USDXPT)</td>
-                                    <td>${{ platinum.oz }}</td>
-                                    <td>${{ platinum.kg }}</td>
-                                    <td>${{ platinum.grams }}</td>
-                                </tr>
-                                <tr>
-                                    <td>PALLADIUM (USDXPD)</td>
-                                    <td>${{ palladium.oz }}</td>
-                                    <td>${{ palladium.kg }}</td>
-                                    <td>${{ palladium.grams }}</td>
-                                </tr>
-                                <tr>
-                                    <td>RHODIUM (USDXRH)</td>
-                                    <td>${{ rhodium.oz }}</td>
-                                    <td>${{ rhodium.kg }}</td>
-                                    <td>${{ rhodium.grams }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </table>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!--   PRICE ALERTS   -->
-    <div class="container" id="database">
-        <div class="section">
-            <div class="row">
-                <div class="card col-12">
-                    <div class="card-body" id="alert-card">
-                        <div class="row" id="database">
 
-                            <div class="col-12">
-                                <h2 style="text-align: center" id="alertsH2">TIME TO BUY FOR:</h2>
+    <!--   SET UP NEW PRICE ALERTS   -->
+    <div class="container center" id="alert-container">
 
-                                <table style="width:100%" id="alerts-table">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Metal</th>
-                                        <th>Approved Rate</th>
-                                        <th>Current Rate</th>
-                                    </tr>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <h2 style="color:orange">Set up New Price Alert</h2>
+      <form id="alert-form">
+        <div class="row center-align">
+          <div class="col s6">
+            <h5>Alert me when</h5>
+          </div>
+          <div class="col s6">
+            <input type="text" class="form-control input-field" id="metal" placeholder="metal">
+          </div>
         </div>
-
-        <!--   SET UP NEW PRICE ALERTS   -->
-        <div class="container center" id="alert-container">
-
-            <h2 style="color:orange">Set up New Price Alert</h2>
-            <form id="alert-form">
-                <div class="row center-align">
-                    <div class="col s6">
-                        <h5>Name your alert</h5>
-                    </div>
-                    <div class="col s6">
-                        <input type="text" class="form-control input-field" id="client" placeholder="alert name">
-                    </div>
-                </div>
-                <div class="row center-align">
-                    <div class="col s6">
-                        <h5>Alert me when</h5>
-                    </div>
-                    <div class="col s6">
-                        <input type="text" class="form-control input-field" id="metal" placeholder="metal">
-                    </div>
-                </div>
-                <div class="row center-align">
-                    <div class="col s6">
-                        <h5>is less than</h5>
-                    </div>
-                    <div class="col s6">
-                        <input type="text" class="form-control input-field" id="price" placeholder="XX.XXXX">
-                    </div>
-                </div>
-                <div class="col s2">
-                    <button type="save" class="btn btn-primary btn-large orange darken-1 searchBtn" id="alert-button">
-                        Save Alert
-                    </button>
-                </div>
-            </form>
-
+        <div class="row center-align">
+          <div class="col s6">
+            <h5>is less than</h5>
+          </div>
+          <div class="col s6">
+            <input type="text" class="form-control input-field" id="price" placeholder="XXXX.XX">
+          </div>
         </div>
-        ​
+        <div class="col s2">
+          <button type="save" class="btn btn-primary btn-large orange darken-1 searchBtn" id="alert-button">
+            Save Alert
+          </button>
+        </div>
+      </form>
+
     </div>
-    <br><br>
+    ​
+  </div>
+  <br><br>
 </div>
 ​
 <footer class="page-footer orange">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">We are a team of coding students working on this project like it's
-                    our full time job. Any amount would help support and continue development on this project and is
-                    greatly appreciated.</p>
-                <span>&copy; 2020 Rebecca Burke, Hannah Folk, Marie Gilbert, Eduardo Urbaez</span>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Company Bio</h5>
+        <p class="grey-text text-lighten-4">We are a team of coding students working on this project like it's
+          our full time job. Any amount would help support and continue development on this project and is
+          greatly appreciated.</p>
+        <span>&copy; 2020 Rebecca Burke, Hannah Folk, Marie Gilbert, Eduardo Urbaez</span>
+      </div>
     </div>
+  </div>
 </footer>

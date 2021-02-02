@@ -1,54 +1,56 @@
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-        <a href="/" class="brand-logo">Precious Metals</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/alerts">Alerts</a></li>
-        </ul>
-    </div>
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo">Precious Metals</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/alerts">Alerts</a></li>
+      <li><a href="/api/users/logout">Logout</a></li>
+    </ul>
+  </div>
 </nav>
 
 <div class="section no-pad-bot">
-    <div class="container">
-        <div class="section">
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="card col-12">
+          <div class="card-body">
             <div class="row">
-                <div class="card col-12">
-                    <div class="card-body">
-                        <div class="row">
 
-                            <div class="col-12">
-                                <h2 style="text-align: center">ALERTS</h2>
+              <div class="col-12">
+                <h2 style="text-align: center">ALERTS</h2>
 
-                                <table class="responsive-table" id="alerts-page-table">
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Metal</th>
-                                        <th>Approved Rate</th>
-                                        <th>Current Rate</th>
-                                    </tr>
-                                    {{#each alertArr}}
-                                    <tr class="alert">
-                                        <td class="buttons-td">
-                                            <button class="btn btn-primary btn-small orange darken-1 update" data-id="{{id}}">
-                                                Update
-                                            </button>
-                                            <button class="btn btn-primary btn-small orange darken-1 delete" data-id="{{id}}">
-                                                Delete
-                                            </button>
-                                        </td>
-                                        <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-client" value="{{client}}" readonly></input></td>
-                                        <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-metal" value="{{metal}}" readonly></input></td>
-                                        <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-price" value="$ {{price}}" readonly></input></td>
-                                        <td class="alerts-td current-price"><input class="alert-table-inputs" value="$ {{currentPrice}}" readonly></input></td>
-                                    </tr>
-                                    {{/each}}
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <table class="responsive-table" id="alerts-page-table">
+                  <tr>
+                    <th></th>
+                    <th>Metal</th>
+                    <th>Approved Rate</th>
+                    <th>Current Rate</th>
+                  </tr>
+                  {{#each alertArr}}
+                  <tr class="alert">
+                    <td class="buttons-td">
+                      <button class="btn btn-primary btn-small orange darken-1 update" data-id="{{id}}">
+                        Update
+                      </button>
+                      <button class="btn btn-primary btn-small orange darken-1 delete" data-id="{{id}}">
+                        Delete
+                      </button>
+                    </td>
+                    <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-metal"
+                        value="{{metal}}" readonly></input></td>
+                    <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-price"
+                        value="$ {{price}}" readonly></input></td>
+                    <td class="alerts-td current-price"><input class="alert-table-inputs" value="$ {{currentPrice}}"
+                        readonly></input></td>
+                  </tr>
+                  {{/each}}
+                </table>
+              </div>
             </div>
+          </div>
         </div>
-        <br><br>
+      </div>
     </div>
+    <br><br>
+  </div>
 </div>
