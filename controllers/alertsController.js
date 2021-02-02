@@ -2,36 +2,31 @@
 const db = require("../models");
 
 // Register an alert
-exports.postAlert = function(req, res) {
-  //   console.log(req.body);
-
+const postAlert = (req, res) => {
   // Post the user-created alert to the table "Alerts"
   db.Alert.create(req.body)
-    .then(function(dbAlert) {
-      //   console.log(dbAlert);
+    .then(function (dbAlert) {
       res.json(dbAlert);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       res.json(err);
     });
 };
 
 // Get an alert
-exports.getAlert = function(req, res) {
+const getAlert = (req, res) => {
   // Get all alerts from the table "Alerts" and send them to the client-side
-  db.Alert.findAll({}).then(dbAlerts => {
-    // console.log(dbAlerts);
+  db.Alert.findAll({}).then((dbAlerts) => {
     res.json(dbAlerts);
   });
 };
 
-exports.getAlertsPage = async function(req, res) {
+const getAlertsPage = (req, res) => {
   db.Metal.findAll({
     limit: 1,
-    order: [["createdAt", "DESC"]]
-  }).then(function(dbMetal) {
-
-    db.Alert.findAll({}).then(dbAlerts => {
+    order: [["createdAt", "DESC"]],
+  }).then(function (dbMetal) {
+    db.Alert.findAll({}).then((dbAlerts) => {
       let dbAlertsArr = [];
 
       for (var i = 0; i < dbAlerts.length; i++) {
@@ -57,7 +52,7 @@ exports.getAlertsPage = async function(req, res) {
           case "rhodium":
             // Pull out the latest rhodium price;
             currentPrice = dbMetal[0].dataValues.rhodium;
-        };
+        }
         currentPrice = parseFloat(currentPrice).toFixed(2);
         const price = parseFloat(dbAlerts[i].dataValues.price).toFixed(2);
 
@@ -66,38 +61,42 @@ exports.getAlertsPage = async function(req, res) {
           client: dbAlerts[i].dataValues.client,
           metal: dbAlerts[i].dataValues.metal,
           price: price,
-          currentPrice: currentPrice
+          currentPrice: currentPrice,
         };
-  
+
         dbAlertsArr.push(dbAlertsObj);
       }
-      console.log(dbAlertsArr);
-  
+
       res.render("alerts", { alertArr: dbAlertsArr });
     });
   });
-  
 };
 
-exports.updateAlert = function(req, res) {
-  console.log(req.body);
+const updateAlert = (req, res) => {
   db.Alert.update(req.body, {
     where: {
-      id: req.params.id
-    }
-  }).then(function(dbAlert) {
-    console.log(dbAlert);
+      id: req.params.id,
+    },
+  }).then(function (dbAlert) {
     res.json(dbAlert);
   });
 };
 
-exports.deleteAlert = function(req, res) {
-  // Delete user-chosen alert
+// Delete user-chosen alert
+const deleteAlert = (req, res) => {
   db.Alert.destroy({
     where: {
-      id: req.params.id
-    }
-  }).then(function(dbAlert) {
+      id: req.params.id,
+    },
+  }).then(function (dbAlert) {
     res.json(dbAlert);
   });
+};
+
+module.exports = {
+  postAlert,
+  getAlert,
+  getAlertsPage,
+  updateAlert,
+  deleteAlert,
 };
