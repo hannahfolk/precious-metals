@@ -21,14 +21,11 @@ const postMetal = async () => {
   };
 
   // Use db.Metal.create to add each price into the database for each element in the metalsArr
-  db.Metal.create(metalsObj)
-    .then((dbMetal) => {
-      res.json(dbMetal);
-    })
-    .catch((err) => {
-      // res.json(err);
-      console.log(err);
-    });
+  try {
+    await db.Metal.create(metalsObj);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getMetal = (req, res) => {
@@ -65,7 +62,7 @@ const renderMetals = async (req, res) => {
         palladium: "---",
         rhodium: "---",
       };
-      
+
       res.render("index", dbMetalObj);
     } else {
       dbMetalObj = {
