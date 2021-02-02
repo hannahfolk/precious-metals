@@ -36,11 +36,11 @@
                         Delete
                       </button>
                     </td>
-                    <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-metal"
+                    <td class="alerts-td"><input class="alert-table-inputs changeable alert-page-metal"
                         value="{{metal}}" readonly></input></td>
-                    <td class="alerts-td"><input class="alert-table-inputs changeable" id="alert-page-price"
-                        value="$ {{price}}" readonly></input></td>
-                    <td class="alerts-td current-price"><input class="alert-table-inputs" value="$ {{currentPrice}}"
+                    <td class="alerts-td"><input class="alert-table-inputs changeable alert-page-price"
+                        value="${{price}}" readonly></input></td>
+                    <td class="alerts-td current-price"><input class="alert-table-inputs" value="${{currentPrice}}"
                         readonly></input></td>
                   </tr>
                   {{/each}}
@@ -54,3 +54,5 @@
     <br><br>
   </div>
 </div>
+
+<script src="/assets/js/alerts.js"></script>
