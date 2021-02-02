@@ -1,96 +1,109 @@
-// Dependencies
-const db = require("../models");
+const { Alert, Metal } = require("../models");
 
 // Register an alert
-const postAlert = (req, res) => {
-  // Post the user-created alert to the table "Alerts"
-  db.Alert.create(req.body)
-    .then(function (dbAlert) {
-      res.json(dbAlert);
-    })
-    .catch(function (err) {
-      res.json(err);
-    });
+const postAlert = async (req, res) => {
+  const { body } = req;
+  try {
+    // Post the user-created alert to the table "Alerts"
+    const dbAlert = await Alert.create(body);
+    res.status(200).json(dbAlert);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 // Get an alert
-const getAlert = (req, res) => {
-  // Get all alerts from the table "Alerts" and send them to the client-side
-  db.Alert.findAll({}).then((dbAlerts) => {
+const getAlert = async (req, res) => {
+  try {
+    // Get all alerts from the table "Alerts" and send them to the client-side
+    const dbAlerts = await Alert.findAll({});
     res.json(dbAlerts);
-  });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-const getAlertsPage = (req, res) => {
-  db.Metal.findAll({
-    limit: 1,
-    order: [["createdAt", "DESC"]],
-  }).then(function (dbMetal) {
-    db.Alert.findAll({}).then((dbAlerts) => {
-      let dbAlertsArr = [];
-
-      for (var i = 0; i < dbAlerts.length; i++) {
-        let currentPrice;
-
-        switch (dbAlerts[i].dataValues.metal) {
-          case "gold":
-            // Pull out the latest gold price;
-            currentPrice = dbMetal[0].dataValues.gold;
-            break;
-          case "silver":
-            // Pull out the latest silver price;
-            currentPrice = dbMetal[0].dataValues.silver;
-            break;
-          case "platinum":
-            // Pull out the latest platinum price;
-            currentPrice = dbMetal[0].dataValues.platinum;
-            break;
-          case "palladium":
-            // Pull out the latest palladium price;
-            currentPrice = dbMetal[0].dataValues.palladium;
-            break;
-          case "rhodium":
-            // Pull out the latest rhodium price;
-            currentPrice = dbMetal[0].dataValues.rhodium;
-        }
-        currentPrice = parseFloat(currentPrice).toFixed(2);
-        const price = parseFloat(dbAlerts[i].dataValues.price).toFixed(2);
-
-        const dbAlertsObj = {
-          id: dbAlerts[i].dataValues.id,
-          client: dbAlerts[i].dataValues.client,
-          metal: dbAlerts[i].dataValues.metal,
-          price: price,
-          currentPrice: currentPrice,
-        };
-
-        dbAlertsArr.push(dbAlertsObj);
-      }
-
-      res.render("alerts", { alertArr: dbAlertsArr });
+const getAlertsPage = async (req, res) => {
+  try {
+    const dbMetal = await Metal.findAll({
+      limit: 1,
+      order: [["createdAt", "DESC"]],
     });
-  });
+
+    const dbAlerts = await Alert.findAll({});
+
+    let dbAlertsArr = [];
+
+    for (var i = 0; i < dbAlerts.length; i++) {
+      let currentPrice;
+
+      switch (dbAlerts[i].dataValues.metal) {
+        case "gold":
+          // Pull out the latest gold price;
+          currentPrice = dbMetal[0].dataValues.gold;
+          break;
+        case "silver":
+          // Pull out the latest silver price;
+          currentPrice = dbMetal[0].dataValues.silver;
+          break;
+        case "platinum":
+          // Pull out the latest platinum price;
+          currentPrice = dbMetal[0].dataValues.platinum;
+          break;
+        case "palladium":
+          // Pull out the latest palladium price;
+          currentPrice = dbMetal[0].dataValues.palladium;
+          break;
+        case "rhodium":
+          // Pull out the latest rhodium price;
+          currentPrice = dbMetal[0].dataValues.rhodium;
+      }
+      currentPrice = parseFloat(currentPrice).toFixed(2);
+      const price = parseFloat(dbAlerts[i].dataValues.price).toFixed(2);
+
+      const dbAlertsObj = {
+        id: dbAlerts[i].dataValues.id,
+        client: dbAlerts[i].dataValues.client,
+        metal: dbAlerts[i].dataValues.metal,
+        price: price,
+        currentPrice: currentPrice,
+      };
+
+      dbAlertsArr.push(dbAlertsObj);
+    }
+
+    res.render("alerts", { alertArr: dbAlertsArr });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-const updateAlert = (req, res) => {
-  db.Alert.update(req.body, {
-    where: {
-      id: req.params.id,
-    },
-  }).then(function (dbAlert) {
-    res.json(dbAlert);
-  });
+const updateAlert = async (req, res) => {
+  const { body } = req;
+  const { id } = req.params;
+  try {
+    const dbAlert = await Alert.update(body, {
+      where: id,
+    });
+    res.status(200).json(dbAlert);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 // Delete user-chosen alert
-const deleteAlert = (req, res) => {
-  db.Alert.destroy({
-    where: {
-      id: req.params.id,
-    },
-  }).then(function (dbAlert) {
-    res.json(dbAlert);
-  });
+const deleteAlert = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbAlert = await Alert.destroy({
+      where: {
+        id,
+      },
+    });
+    res.status(200).json(dbAlert);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 module.exports = {

@@ -1,4 +1,4 @@
-const db = require("../models");
+const { User } = require("../models");
 
 // -------------- VIEW ROUTES -------------
 const login = (req, res) => {
@@ -22,12 +22,12 @@ const apiLogin = (req, res) => {
 
 const apiSignup = (req, res) => {
   const { email, password } = req.body;
-  db.User.create({
+  User.create({
     email,
     password,
   })
     .then(() => {
-      res.redirect(307, "/api/login");
+      res.redirect(307, "/api/users/login");
     })
     .catch((err) => {
       res.status(401).json(err);
