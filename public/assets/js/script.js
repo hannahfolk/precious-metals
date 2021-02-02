@@ -3,8 +3,8 @@ $(document).ready(() => {
   $("#alert-form").on("submit", (event) => {
     event.preventDefault();
 
-    const metalInput = $("#metal").val().trim();
-    const priceInput = $("#price").val().trim();
+    const metalInput = $("#metal").val().trim().toLowerCase();
+    const priceInput = parseFloat($("#price").val().trim()).toFixed(2);
 
     // Won't submit the alert if we are missing a client, metal or price
     if (!metalInput || !priceInput) {
@@ -14,12 +14,22 @@ $(document).ready(() => {
       return;
     }
 
+    if (
+      metalInput !== "gold" &&
+      metalInput !== "silver" &&
+      metalInput !== "platinum" &&
+      metalInput !== "palladium" &&
+      metalInput !== "rhodium"
+    ) {
+      alert("We could not set an alert for that metal. Please try again.");
+      return;
+    }
+
     const newAlert = {
-      metal: metalInput.toLowerCase(),
+      metal: metalInput,
       price: priceInput,
     };
 
-    $("#client").val("");
     $("#metal").val("");
     $("#price").val("");
 
@@ -63,7 +73,7 @@ $(document).ready(() => {
       metalPrice = parseFloat(metalPrice);
 
       // Compare
-      if (alerts[i].price > metalPrice) {
+      if (parseInt(alerts[i].price) > metalPrice) {
         const clientPrice = parseFloat(alerts[i].price);
 
         // Append the alert to the homepage
@@ -78,68 +88,9 @@ $(document).ready(() => {
             metalPrice.toFixed(2) +
             "</td></tr>"
         );
-
-        // Make the alert green on the alerts page
-        $(".alert").attr("class", "buy");
       }
     }
   };
 
   alertUser();
-
-  const $updateBtn = $(".update");
-  const $changeableInput = $(".changeable");
-
-  // Update an alert
-  $updateBtn.on("click", (event) => {
-    event.preventDefault();
-
-    const id = $(this).data("id");
-    console.log(id);
-    if ($updateBtn.hasClass("save")) {
-      $updateBtn.removeClass("save");
-      $updateBtn.text("Update");
-
-      $changeableInput.attr("readonly", true);
-      $changeableInput.removeClass("writeable");
-
-      const alertMetalInput = $("#alert-page-metal").val();
-      const alertPriceInput = $("#alert-page-price").val();
-
-      const updatedAlert = {
-        metal: alertMetalInput.toLowerCase(),
-        price: alertPriceInput,
-      };
-
-      $.ajax({
-        method: "PUT",
-        url: "/api/alerts/" + id,
-        data: updatedAlert,
-      }).then((response) => {
-        console.log(response);
-      });
-    } else {
-      $updateBtn.addClass("save");
-      $updateBtn.text("Save");
-
-      $changeableInput.attr("readonly", false);
-      $changeableInput.addClass("writeable");
-    }
-  });
-
-  // Delete an alert
-  $(".delete").on("click", (event) => {
-    event.preventDefault();
-
-    const id = $(this).data("id");
-
-    $.ajax({
-      method: "DELETE",
-      url: "/api/alerts/" + id,
-    }).then((response) => {
-      console.log("Deleted sucessfully!");
-    });
-
-    location.reload("/alerts");
-  });
 });
