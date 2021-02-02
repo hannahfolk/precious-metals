@@ -4,8 +4,9 @@ const { User } = require("../models");
 const login = (req, res) => {
   if (req.user) {
     res.redirect("/metals");
+  } else {
+    res.render("login");
   }
-  res.render("login");
 };
 
 const signup = (req, res) => {
