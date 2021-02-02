@@ -3,7 +3,7 @@ const alertsController = require("../../controllers/alertsController");
 
 router
   .route("/")
-  .get(alertsController.getAlert)
+  .get(alertsController.getAlerts)
   .post(alertsController.postAlert);
 
 router

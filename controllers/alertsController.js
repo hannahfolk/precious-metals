@@ -3,20 +3,27 @@ const { Alert, Metal } = require("../models");
 // Register an alert
 const postAlert = async (req, res) => {
   const { body } = req;
+  body.UserId = req.user.id;
   try {
     // Post the user-created alert to the table "Alerts"
     const dbAlert = await Alert.create(body);
     res.status(200).json(dbAlert);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 };
 
 // Get an alert
-const getAlert = async (req, res) => {
+const getAlerts = async (req, res) => {
+  const { id } = req.user;
   try {
     // Get all alerts from the table "Alerts" and send them to the client-side
-    const dbAlerts = await Alert.findAll({});
+    const dbAlerts = await Alert.findAll({
+      where: {
+        UserId: id,
+      },
+    });
     res.json(dbAlerts);
   } catch (err) {
     res.status(500).json(err);
@@ -24,13 +31,18 @@ const getAlert = async (req, res) => {
 };
 
 const getAlertsPage = async (req, res) => {
+  const { id } = req.user;
   try {
     const dbMetal = await Metal.findAll({
       limit: 1,
       order: [["createdAt", "DESC"]],
     });
 
-    const dbAlerts = await Alert.findAll({});
+    const dbAlerts = await Alert.findAll({
+      where: {
+        UserId: id,
+      },
+    });
 
     let dbAlertsArr = [];
 
@@ -79,14 +91,22 @@ const getAlertsPage = async (req, res) => {
 };
 
 const updateAlert = async (req, res) => {
-  const { body } = req;
+  const {
+    body: { price },
+  } = req;
   const { id } = req.params;
+  console.log(id);
+  console.log(price);
   try {
-    const dbAlert = await Alert.update(body, {
-      where: id,
-    });
+    const dbAlert = await Alert.update(
+      { price },
+      {
+        where: { id },
+      }
+    );
     res.status(200).json(dbAlert);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -108,7 +128,7 @@ const deleteAlert = async (req, res) => {
 
 module.exports = {
   postAlert,
-  getAlert,
+  getAlerts,
   getAlertsPage,
   updateAlert,
   deleteAlert,
