@@ -1,0 +1,47 @@
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+#alert-card {
+  border-style: solid;
+  border-radius: 2px;
+  border-color: #29b6f6;
+}
+
+#alertsH2 {
+  color: #29b6f6;
+  font-weight: bold;
+}
+
+.alerts-td {
+  padding: 0 10px;
+}
+
+.buttons-td {
+  text-align: center;
+  padding: 5px;
+}
+
+.delete, .update {
+  margin: 5px;
+}
+
+.alert-table-inputs {
+  border-bottom: none !important;
+  margin: 0 !important;
+}
+
+.alert-table-inputs.changeable {
+  color: black !important;
+}
+
+.alert-table-inputs.writeable {
+  border-bottom: 1px solid #9e9e9e !important;
+}
+
+.buy {
+  background-color: lightgreen;
+}
