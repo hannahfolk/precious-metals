@@ -25,7 +25,8 @@
   padding: 5px;
 }
 
-.delete, .update {
+.delete,
+.update {
   margin: 5px;
 }
 
@@ -44,4 +45,9 @@
 
 .buy {
   background-color: lightgreen;
+}
+
+form.signup,
+form.login {
+  margin-top: 50px;
 }

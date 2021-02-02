@@ -1,5 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const session = require("express-session");
+const passport = require("./config/passport");
 const routes = require("./routes");
 const db = require("./models");
 require("dotenv").config();
@@ -15,6 +17,11 @@ app.use(express.static("public"));
 // Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// Passport and Express-Session
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(routes);
 
