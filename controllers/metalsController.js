@@ -55,7 +55,20 @@ const renderMetals = async (req, res) => {
 
     res.render("index", hbsObj);
   } catch (err) {
-    res.status(500).json(err);
+    // BELOW CODE FOR WHEN APIKEY IS OUT OF USES
+    const dbMetal = await Metal.findAll({
+      limit: 1,
+      order: [["createdAt", "DESC"]],
+    });
+
+    const hbsObj = {
+      gold: metalConversions(parseFloat(dbMetal[0].dataValues.gold)),
+      silver: metalConversions(parseFloat(dbMetal[0].dataValues.silver)),
+      platinum: metalConversions(parseFloat(dbMetal[0].dataValues.platinum)),
+      palladium: metalConversions(parseFloat(dbMetal[0].dataValues.palladium)),
+      rhodium: metalConversions(parseFloat(dbMetal[0].dataValues.rhodium)),
+    };
+    res.render("index", hbsObj);
   }
 };
 
