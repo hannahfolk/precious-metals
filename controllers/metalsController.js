@@ -43,6 +43,8 @@ const renderMetals = async (req, res) => {
       rhodium: 1 / data.rates.XRH,
     };
 
+    await Metal.create(metalsObj);
+
     const hbsObj = {
       gold: metalConversions(parseFloat(metalsObj.gold)),
       silver: metalConversions(parseFloat(metalsObj.silver)),
@@ -51,7 +53,7 @@ const renderMetals = async (req, res) => {
       rhodium: metalConversions(parseFloat(metalsObj.rhodium)),
     };
 
-    res.status(200).render("index", hbsObj);
+    res.render("index", hbsObj);
   } catch (err) {
     res.status(500).json(err);
   }
